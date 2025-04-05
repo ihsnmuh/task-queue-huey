@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
-from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.profiles",
     "apps.notifications",
-    "apps.tasks"
+    "apps.tasks",
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [ BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -88,7 +89,7 @@ DATABASES = {
         "USER": os.environ.get("PG_USER", "postgres"),
         "PASSWORD": os.environ.get("PG_PASSWORD", "postgres"),
         "HOST": os.environ.get("PG_HOST", "localhost"),
-        "PORT": os.environ.get("PG_PORT", "5435")
+        "PORT": os.environ.get("PG_PORT", "5435"),
     }
 }
 
@@ -128,7 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / "static"
 
 STORAGES = {
     "staticfiles": {

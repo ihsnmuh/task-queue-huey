@@ -2,6 +2,7 @@ from django.views.generic import ListView, View
 from apps.tasks.models import Task
 from apps.notifications.models import Notification
 from django.shortcuts import render, redirect
+from .tasks import task_do_something
 
 class TaskListView(ListView):
     model = Task
@@ -21,6 +22,8 @@ class TaskCreateView(View):
         description = request.POST.get('description')
         due_at = request.POST.get('due_at')
         user = request.user
+        
+        task_do_something()
 
         Task.objects.create(title=title, description=description, due_at=due_at, user=user)
         return redirect('task_list')

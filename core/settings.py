@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.profiles",
     "apps.notifications",
     "apps.tasks",
+    "huey.contrib.djhuey",
 ]
 
 MIDDLEWARE = [

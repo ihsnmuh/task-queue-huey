@@ -1,10 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, View
 
-from apps.notifications.models import Notification
 from apps.tasks.models import Task
 
-from .tasks import task_do_something
+from .tasks import schedule_notification_task
 
 
 class TaskListView(ListView):
@@ -27,20 +26,10 @@ class TaskCreateView(View):
         due_at = request.POST.get("due_at")
         user = request.user
 
-        task_do_something()
-
-        Task.objects.create(
+        task = Task.objects.create(
             title=title, description=description, due_at=due_at, user=user
         )
+        
+        schedule_notification_task(task.id)
+                
         return redirect("task_list")
-
-
-class NotificationListView(ListView):
-    model = Notification
-    template_name = "notification_list.html"
-    context_object_name = "notifications"
-
-    def get_queryset(self):
-        return Notification.objects.filter(task__user=self.request.user).order_by(
-            "-sent_at"
-        )

@@ -1,13 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1> Task </h1>
-    {% for task in tasks %}
-        <div>
-            <h2>{{ task.title }}</h2>
-            <p>{{ task.description }}</p>
-            <p>Due Date: {{ task.due_at }}</p>
-            <button class="btn btn-sm">Default</button>
+<div class="max-w-4xl mx-auto p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-semibold">📝 Daftar Tugas Anda</h1>
+        <div class="space-x-2">
+
+            <a href="{% url 'create_task' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                + Tambah Task
+            </a>
+
+            <a href="{% url 'notification_list' %}" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                🔔 Lihat Notifikasi
+            </a>
         </div>
-    {% endfor %}
+    </div>
+
+    {% if tasks %}
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Judul</th>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Deskripsi</th>
+                        <th class="px-4 py-2 text-sm font-medium text-gray-700">Deadline</th>
+                        <th class="px-4 py-2 text-sm font-medium text-gray-700">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100">
+                    {% for task in tasks %}
+                    <tr>
+                        <td class="px-4 py-3 font-semibold text-gray-800">{{ task.title }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ task.description|default:"-" }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ task.due_at|date:"d-m-Y H:i" }}</td>
+                        <td class="px-4 py-3">
+                            {% if task.status == 'completed' %}
+                                <span class="text-green-600 font-medium">Selesai</span>
+                            {% elif task.is_overdue %}
+                                <span class="text-red-600 font-medium">Terlambat</span>
+                            {% else %}
+                                <span class="text-yellow-600 font-medium">Belum Selesai</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="bg-yellow-100 text-yellow-800 p-4 rounded">
+            Kamu belum memiliki tugas saat ini.
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

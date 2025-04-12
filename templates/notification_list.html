@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-2xl font-semibold mb-4">🔔 Notifikasi</h1>
+
+    {% if notifications %}
+        <ul class="space-y-4">
+            {% for notif in notifications %}
+                <li class="bg-white p-4 rounded shadow border-l-4 {% if notif.success %}border-green-500{% else %}border-red-500{% endif %}">
+                    <div class="text-gray-800">{{ notif.message }}</div>
+                    <div class="text-sm text-gray-500 mt-1">
+                        {{ notif.sent_at|date:"Y-m-d H:i" }} | Task: {{ notif.task.title }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="bg-yellow-100 text-yellow-800 p-4 rounded">
+            Tidak ada notifikasi saat ini.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

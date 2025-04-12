@@ -8,8 +8,8 @@ class Notification(BaseModels):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     message = models.TextField()
     sent_at = models.DateTimeField(null=True, blank=True)  # waktu pengiriman
-    success = models.BooleanField(default=False)           # true jika sudah muncul
-    is_scheduled = models.BooleanField(default=False)      # dipakai untuk tracking Huey
-    
+    success = models.BooleanField(default=False)  # true jika sudah muncul
+    is_scheduled = models.BooleanField(default=False)  # dipakai untuk tracking Huey
+
     def __str__(self):
         return f"Notif: {self.message[:30]}... | Task: {self.task.title}"

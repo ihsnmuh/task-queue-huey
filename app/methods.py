@@ -12,6 +12,7 @@ from .tasks import send_notification_task
 def schedule_notification(task, minutes=2):
     notify_at = task.due_at - timedelta(minutes=minutes)
     now = localtime(timezone.now())
+    due_at_local = localtime(task.due_at)
 
     print(f"[DEBUG] now: {now}")
     print(f"[DEBUG] task.due_at: {task.due_at}")
@@ -19,7 +20,7 @@ def schedule_notification(task, minutes=2):
 
     notif = Notification.objects.create(
         task=task,
-        message=f"Reminder: Tugas '{task.title}' akan jatuh tempo pada {task.due_at.strftime('%Y-%m-%d %H:%M')}",
+        message=f"Reminder: Tugas '{task.title}' akan jatuh tempo pada {due_at_local.strftime('%Y-%m-%d %H:%M')}",
         sent_at=None,
         success=False,
     )

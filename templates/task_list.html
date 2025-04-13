@@ -36,7 +36,7 @@
                         <td class="px-4 py-3">
                             {% if task.status == 'completed' %}
                                 <span class="text-green-600 font-medium">Selesai</span>
-                            {% elif task.is_overdue %}
+                            {% elif task.status == 'overdue' %}
                                 <span class="text-red-600 font-medium">Terlambat</span>
                             {% else %}
                                 <span class="text-yellow-600 font-medium">Belum Selesai</span>

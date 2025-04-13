@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.timezone import localtime
 
 from apps.notifications.models import Notification
+from apps.tasks.models import Task
 
 from .tasks import send_notification_task
 
@@ -45,3 +46,18 @@ def send_notification(notification_id):
         print(f"[Huey] Notifikasi dikirim: {notif.message}")
     except Notification.DoesNotExist:
         print(f"[Huey] Notification ID {notification_id} tidak ditemukan.")
+
+
+def update_status():
+    now = localtime(timezone.now())
+    overdue_tasks = Task.objects.filter(
+        status="pending",
+        due_at__lt=now,
+    )
+    count = overdue_tasks.count()
+
+    for task in overdue_tasks:
+        task.status = "overdue"
+        task.save()
+
+    print(f"[Huey] Updated {count} task(s) to overdue at {now}")

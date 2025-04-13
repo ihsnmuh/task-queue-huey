@@ -29,7 +29,7 @@ class TaskCreateView(View):
         task = Task.objects.create(
             title=title, description=description, due_at=due_at, user=user
         )
-        
+
         schedule_notification_task(task.id)
-                
+
         return redirect("task_list")

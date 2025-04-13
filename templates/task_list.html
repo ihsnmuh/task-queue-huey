@@ -4,15 +4,19 @@
 <div class="max-w-4xl mx-auto p-6">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-semibold">📝 Daftar Tugas Anda</h1>
-        <div class="space-x-2">
+        <div class="flex gap-2">
 
-            <a href="{% url 'create_task' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <a href="{% url 'create_task' %}" class="btn btn-primary">
                 + Tambah Task
             </a>
 
-            <a href="{% url 'notification_list' %}" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+            <a href="{% url 'notification_list' %}" class="btn btn-secondary">
                 🔔 Lihat Notifikasi
             </a>
+
+            {% if user.is_authenticated %}
+                <p>Halo, {{ user.username }} | <a class="btn btn-error" href="{% url 'logout' %}">Logout</a></p>
+            {% endif %}
         </div>
     </div>
 
@@ -47,7 +51,7 @@
                             {% if task.status != "completed" %}
                             <form method="post" action="{% url 'task_complete' task.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-circle submit">
+                                <button class="btn btn-circle btn-success submit">
                                     ✅
                                 </button>
                             </form>

@@ -7,7 +7,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="flex flex-col space-y-4">
-                <input type="text" name="title" placeholder="Judul Task" class="input input-primary w-full border border-gray-300 rounded px-4 py-2 outline-amber-400 focus:outline-none focus:ring focus:ring-blue-500" required>
+                <input type="text" name="title" placeholder="Judul Task" class="input input-primary w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:ring-blue-500" required>
                 <textarea name="description" placeholder="Deskripsi Task" class="textarea textarea-primary w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:ring-blue-500"></textarea>
                 <input type="datetime-local" name="due_at" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:ring-blue-500" required>
             </div>

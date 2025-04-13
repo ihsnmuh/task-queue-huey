@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, View
 
@@ -6,7 +7,7 @@ from apps.tasks.models import Task
 from .tasks import schedule_notification_task
 
 
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "task_list.html"
     context_object_name = "tasks"
@@ -16,7 +17,7 @@ class TaskListView(ListView):
         return Task.objects.filter(user=self.request.user)
 
 
-class TaskCreateView(View):
+class TaskCreateView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "create_task.html")
 

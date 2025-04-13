@@ -76,6 +76,12 @@ A simple task management web app built with **Django**, **Huey**, and **Tailwind
    python manage.py runserver
    ```
 
+7. **Account Login**
+   ```bash
+   username: admin
+   password: admin
+   ```
+
 ---
 
 ## 📌 Notes

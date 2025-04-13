@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, View
 
 from apps.tasks.models import Task
@@ -33,3 +33,10 @@ class TaskCreateView(View):
         schedule_notification_task(task.id)
 
         return redirect("task_list")
+
+
+def mark_task_done(request, task_id):
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    task.status = "completed"
+    task.save()
+    return redirect("task_list")

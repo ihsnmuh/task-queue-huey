@@ -9,7 +9,7 @@ from apps.tasks.models import Task
 from .tasks import send_notification_task
 
 
-def schedule_notification(task, minutes=2):
+def schedule_notification(task, minutes=5):
     notify_at = task.due_at - timedelta(minutes=minutes)
     now = localtime(timezone.now())
     due_at_local = localtime(task.due_at)

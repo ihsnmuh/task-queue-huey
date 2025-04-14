@@ -18,7 +18,7 @@ A simple task management web app built with **Django**, **Huey**, and **Tailwind
 - [Django](https://www.djangoproject.com/)
 - [Huey](https://github.com/coleifer/huey) (task queue)
 - Tailwind CSS + DaisyUI (UI framework)
-- SQLite (default DB, can be changed)
+- Postgresql (database)
 
 ---
 
